@@ -1,0 +1,116 @@
+package fa2024_LAB5PART2;
+
+import java.util.Random;
+
+// Class to manage bank account information
+public class FA2024_CheckingBankAccount_Joao {
+    private String accountNumber; // unique ID for account
+    private String name;          // account holder's name
+    private float balance;        // account balance
+    private float interestRate;   // interest rate for account
+
+    // No-argument constructor that only sets a random account number
+    public FA2024_CheckingBankAccount_Joao() {
+        this.accountNumber = generateAccountNumber();
+    }
+
+    // Constructor to set up account with name, balance, and interest rate
+    public FA2024_CheckingBankAccount_Joao(String name, float balance, float interestRate) {
+        this(); // call no-argument constructor to set account number
+        this.name = name;
+        this.balance = balance;
+        this.interestRate = interestRate;
+    }
+
+    // Method to create a random 16-digit account number
+    private String generateAccountNumber() {
+        Random rand = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 16; i++) {
+            sb.append(rand.nextInt(10)); // add random digit to account number
+        }
+        return sb.toString();
+    }
+
+    // Method to open a new account and display details
+    public void openNewAccount() {
+        System.out.println("FA2024_OnlineCheckingBankService_Joao.java");
+        System.out.println("ONLINE BANK – TEODORA JOAO");
+        System.out.println("--------------------------------------------------");
+        System.out.println("NEW ACCOUNT");
+        System.out.printf("%-30s %20s%n", "Account Number:", accountNumber);
+        System.out.printf("%-30s %20s%n", "Account Name:", name);
+        System.out.printf("%-30s %20.2f%n", "Balance:", balance);
+        System.out.printf("%-30s %19.2f%%%n", "Interest Rate:", interestRate);
+    }
+
+    // Method to check and display the current balance
+    public void checkCurrentBalance() {
+        System.out.println("FA2024_OnlineCheckingBankService_Joao.java");
+        System.out.println("ONLINE BANK – TEODORA JOAO");
+        System.out.println("--------------------------------------------------");
+        System.out.println("CURRENT ACCOUNT");
+        System.out.printf("%-30s %20s%n", "Account Number:", accountNumber);
+        System.out.printf("%-30s %20s%n", "Account Name:", name);
+        System.out.printf("%-30s %20.2f%n", "Balance:", balance);
+    }
+
+    // Method to deposit money and update balance
+    public void deposit(float amount) {
+        System.out.println("FA2024_OnlineCheckingBankService_Joao.java");
+        System.out.println("ONLINE BANK – TEODORA JOAO");
+        System.out.println("--------------------------------------------------");
+        System.out.println("DEPOSIT");
+        System.out.printf("%-30s %20s%n", "Account Number:", accountNumber);
+        System.out.printf("%-30s %20s%n", "Account Name:", name);
+        System.out.printf("%-30s %20.2f%n", "Balance:", balance); // Show current balance before deposit
+        System.out.printf("%-30s %20.2f%n", "Deposit:", amount);
+        
+        balance += amount; // Add deposit amount to balance
+
+        System.out.printf("%-30s %20.2f%n", "New Balance:", balance); // Show new balance after deposit
+    }
+
+    // Method to withdraw money if balance remains at least $100
+    public void withdraw(float amount) {
+        System.out.println("FA2024_OnlineCheckingBankService_Joao.java");
+        System.out.println("ONLINE BANK – TEODORA JOAO");
+        System.out.println("--------------------------------------------------");
+        System.out.println("WITHDRAW");
+        System.out.printf("%-30s %20s%n", "Account Number:", accountNumber);
+        System.out.printf("%-30s %20s%n", "Account Name:", name);
+        System.out.printf("%-30s %20.2f%n", "Balance:", balance);
+        System.out.printf("%-30s %20.2f%n", "Withdraw:", amount);
+
+        if (balance - amount >= 100) { // check if enough balance remains
+            balance -= amount; // deduct amount from balance
+            System.out.printf("%-30s %20.2f%n", "New Balance:", balance);
+        } else { // if balance after withdrawal would be less than $100
+            System.out.printf("%-30s %20.2f - denied%n", "Withdraw:", amount);
+            System.out.printf("%-30s %20.2f%n", "New Balance:", balance);
+        }
+    }
+
+    // Method to change the interest rate for the account
+    public void changeInterestRate(float newRate) {
+        this.interestRate = newRate; // update interest rate
+        System.out.printf("Interest rate updated to %.2f%%%n", newRate);
+    }
+
+    // Method to show bank statement with calculated interest added to balance
+    public void bankStatement() {
+        float interestAmount = balance * (interestRate / 100); // calculate interest
+        balance += interestAmount; // add interest to balance
+        System.out.println("FA2024_OnlineCheckingBankService_Joao.java");
+        System.out.println("ONLINE BANK – TEODORA JOAO");
+        System.out.println("--------------------------------------------------");
+        System.out.println("BANK STATEMENT");
+        System.out.printf("%-30s %20s%n", "Statement Date:", java.time.LocalDate.now());
+        System.out.printf("%-30s %20s%n", "Account Number:", accountNumber);
+        System.out.printf("%-30s %20s%n", "Account Name:", name);
+        System.out.printf("%-30s %20.2f%n", "Balance:", balance);
+        System.out.printf("%-30s %19.2f%%%n", "Interest Rate:", interestRate);
+        System.out.printf("%-30s %20.2f%n", "Interest Amount:", interestAmount);
+        System.out.printf("%-30s %20.2f%n", "New Balance:", balance);
+    }
+}
