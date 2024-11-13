@@ -1,0 +1,102 @@
+package fa2024_LAB5PART2;
+import java.util.Scanner;
+
+public class FA2024_OnlineCheckingBankService_Joao {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        FA2024_CheckingBankAccount_Joao account = null;
+        int choice;
+
+        do {
+        	System.out.println("FA2024_OnlineCheckingBankService_Joao.java");
+            System.out.println("ONLINE BANK – TEODORA JOAO");
+            System.out.println("-------------------------------------------");
+            System.out.println("1. Open New Account");
+            System.out.println("2. Check Current Balance");
+            System.out.println("3. Change Interest Rate");
+            System.out.println("4. Deposit");
+            System.out.println("5. Withdrawal");
+            System.out.println("6. Bank Statement");
+            System.out.println("0. Exit");
+            System.out.print("Choose an option: ");
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline left-over
+
+            switch (choice) {
+                case 1: // Open a new bank Account
+                    System.out.print("Enter account holder's name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter initial balance: ");
+                    float balance = scanner.nextFloat();
+                    System.out.print("Enter interest rate: ");
+                    float interestRate = scanner.nextFloat();
+
+                    if (balance < 20) {
+                        System.out.println("To open a new account, the money amount should be at least $20.00.");
+                    } else {
+                        account = new FA2024_CheckingBankAccount_Joao(name, balance, interestRate);
+                        account.openNewAccount();
+                    }
+                    break;
+
+                case 2: // Check the total Balance
+                    if (account == null) {
+                        System.out.println("You should select task 1 to create a new account before selecting this task.");
+                    } else {
+                        account.checkCurrentBalance();
+                    }
+                    break;
+
+                case 3: // Change Interest Rate
+                    if (account == null) {
+                        System.out.println("You should select task 1 to create a new account before selecting this task.");
+                    } else {
+                        System.out.print("Enter new interest rate: ");
+                        float newInterestRate = scanner.nextFloat();
+                        account.changeInterestRate(newInterestRate);
+                        System.out.println("Interest rate updated successfully.");
+                    }
+                    break;
+
+                case 4: // Deposit
+                    if (account == null) {
+                        System.out.println("You should select task 1 to create a new account before selecting this task.");
+                    } else {
+                        System.out.print("Enter deposit amount: ");
+                        float depositAmount = scanner.nextFloat();
+                        account.deposit(depositAmount);
+                    }
+                    break;
+
+                case 5: // Withdrawal
+                    if (account == null) {
+                        System.out.println("You should select task 1 to create a new account before selecting this task.");
+                    } else {
+                        System.out.print("Enter withdrawal amount: ");
+                        float withdrawalAmount = scanner.nextFloat();
+                        account.withdraw(withdrawalAmount);
+                    }
+                    break;
+
+                case 6: // Bank Statements
+                    if (account == null) {
+                        System.out.println("You should select task 1 to create a new account before selecting this task.");
+                    } else {
+                        account.bankStatement();
+                    }
+                    break;
+
+                case 0: // Exit
+                    System.out.println("Exiting program.");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+                    break;
+            }
+            System.out.println(); 
+        } while (choice != 0);
+
+        scanner.close();
+    }
+}
